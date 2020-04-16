@@ -12,7 +12,7 @@ ExecStart=/bin/docker run --name=%N \
                           --net={{ docker_network }} \
 {% endif %}
 {% for m in docker_mounts %}
-                          --mount type="{{ m.type }}",src="{{ m.src }}",dst="{{ m.dst }}"{% if m.readonly %},ro{% endif %} \
+                          --mount type="{{ m.type }}",src="{{ m.src }}",dst="{{ m.dst }}"{% if m.readonly|default(false) %},ro{% endif %} \
 {% endfor %}
 {% for p in docker_ports %}
                           -p {{ service_bind_address }}:{{ p }} \
