@@ -2,7 +2,9 @@
 - name: Converge
   hosts: all
   roles:
-    - geerlingguy.docker
+    - role: geerlingguy.docker
+      vars:
+        docker_install_compose: false
   tasks:
     - name: Include chameleon.docker-service
       include_role:
