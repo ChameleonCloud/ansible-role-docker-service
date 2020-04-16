@@ -7,7 +7,8 @@ driver:
   name: docker
 platforms:
   - name: instance
-    image: "${MOLECULE_DISTRO:-centos:7}"
+    image: "docker.io/pycontribs/${MOLECULE_DISTRO:-centos:7}"
+    pre_build_image: true
     command: /sbin/init
     capabilities:
       - NET_ADMIN
