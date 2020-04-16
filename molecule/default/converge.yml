@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include chameleon.docker-service"
+      include_role:
+        name: "chameleon.docker-service"
