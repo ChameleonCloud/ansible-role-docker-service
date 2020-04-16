@@ -5,7 +5,7 @@ driver:
   name: docker
 platforms:
   - name: instance
-    image: centos:7
+    image: "${MOLECULE_DISTRO}"
     command: /sbin/init
     capabilities:
       - NET_ADMIN
