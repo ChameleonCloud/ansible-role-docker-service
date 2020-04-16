@@ -1,0 +1,29 @@
+# {{ ansible_managed }}
+[Unit]
+After=docker.service
+{% if service_description %}
+Description={{ service_description }}
+{% endif %}
+
+[Service]
+Restart=always
+ExecStart=/bin/docker run --name=%N \
+{% if docker_network %}
+                          --net={{ docker_network }} \
+{% endif %}
+{% for m in docker_mounts %}
+                          --mount type="{{ m.type }}",src="{{ m.src }}",dst="{{ m.dst }}"{% if m.readonly %},ro{% endif %} \
+{% endfor %}
+{% for p in docker_ports %}
+                          -p {{ service_bind_address }}:{{ p }} \
+{% endfor %}
+{% for k, v in docker_environment.items() %}
+                          -e {{ k }}={{ v }} \
+{% endfor %}
+                          {{ docker_image }} {% if docker_command %}{{ docker_command }}{% endif %}
+
+ExecStop=/bin/docker stop -t {{ service_stop_timeout }} %N
+ExecStopPost=/bin/docker rm -f %N
+
+[Install]
+WantedBy=multi-user.target

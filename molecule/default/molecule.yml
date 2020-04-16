@@ -5,8 +5,16 @@ driver:
   name: docker
 platforms:
   - name: instance
-    image: docker.io/pycontribs/centos:7
-    pre_build_image: true
+    image: centos:7
+    command: /sbin/init
+    capabilities:
+      - NET_ADMIN
+      - NET_RAW
+    tmpfs:
+      - /run
+      - /tmp
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
 provisioner:
   name: ansible
 verifier:

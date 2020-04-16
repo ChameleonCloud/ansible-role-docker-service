@@ -1,2 +1,9 @@
 ---
-# handlers file for chameleon.docker-service
+- name: restart service
+  service:
+    name: "{{ service_name }}"
+    state: restarted
+
+- name: reload systemd daemon
+  systemd:
+    daemon_reload: yes

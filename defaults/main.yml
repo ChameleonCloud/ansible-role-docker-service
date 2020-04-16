@@ -1,2 +1,14 @@
 ---
-# defaults file for chameleon.docker-service
+service_name:
+service_description:
+service_bind_address: "{{ ansible_all_ipv4_addresses|first }}"
+service_stop_timeout: 2
+
+docker_image:
+docker_command:
+docker_network:
+docker_mounts: []
+docker_environment: {}
+docker_ports: []
+
+systemd_install_path: /usr/lib/systemd/system

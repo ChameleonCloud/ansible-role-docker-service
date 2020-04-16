@@ -1,2 +1,27 @@
 ---
-# tasks file for chameleon.docker-service
+- name: Check for required variables.
+  fail:
+    msg: "Variable '{{ item }}' is not defined"
+  when: item is not defined
+  loop:
+    - service_name
+    - docker_image
+
+- name: Validate service name.
+  fail:
+    msg: "'{{ service_name }}' is not a valid service name"
+  when: service_name is not match("[A-Za-z0-9\.\-_]+")
+
+- name: Install service definition.
+  template:
+    src: systemd.service.j2
+    dest: "{{ systemd_install_path }}/{{ service_name }}.service"
+  notify:
+    - reload systemd daemon
+    - restart service
+
+- name: Enable service.
+  service:
+    name: "{{ service_name }}"
+    state: started
+    enabled: True
