@@ -1,8 +1,10 @@
 ---
 - name: Check for required variables.
   fail:
-    msg: "Variable '{{ item }}' is not defined"
-  when: item is not defined
+    msg: "Variable '{{ required_var }}' is not defined"
+  when: lookup('vars', required_var) is not defined
+  loop_control:
+    loop_var: required_var
   loop:
     - service_name
     - docker_image
