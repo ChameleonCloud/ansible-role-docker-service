@@ -7,7 +7,7 @@ sudo: false
 
 env:
   global:
-    - ROLE_NAME: docker-service
+    - ROLE_NAME: docker_service
   matrix:
     - MOLECULE_DISTRO: centos:7
 

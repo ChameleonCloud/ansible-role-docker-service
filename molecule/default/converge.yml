@@ -6,9 +6,9 @@
       vars:
         docker_install_compose: false
   tasks:
-    - name: Include chameleon.docker-service
+    - name: Include chameleon.docker_service
       include_role:
-        name: chameleon.docker-service
+        name: chameleon.docker_service
       vars:
         service_name: foo
         docker_image: centos:7

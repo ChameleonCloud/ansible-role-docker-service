@@ -1,5 +1,5 @@
 galaxy_info:
-  role_name: docker-service
+  role_name: docker_service
   author: Jason Anderson
   description: |
     Some services for CHI-in-a-Box are not provided by Kolla-Ansible. This role
