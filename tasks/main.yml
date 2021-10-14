@@ -15,6 +15,7 @@
   when: service_name is not match("[A-Za-z0-9\.\-_]+")
 
 - name: Install service definition.
+  become: yes
   template:
     src: systemd.service.j2
     dest: "{{ systemd_install_path }}/{{ service_name }}.service"
@@ -23,6 +24,7 @@
     - restart service
 
 - name: Enable service.
+  become: yes
   service:
     name: "{{ service_name }}"
     state: started
