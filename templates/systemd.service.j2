@@ -5,9 +5,15 @@ After=docker.service
 Description={{ service_description }}
 {% endif %}
 
+{% if ansible_facts['os_family'] == "RedHat" %}
+{% set docker_path = '/bin/docker' %}
+{% else %}
+{% set docker_path = '/usr/bin/docker' %}
+{% endif %}
+
 [Service]
 Restart=always
-ExecStart=/bin/docker run --name=%N \
+ExecStart={{ docker_path }} run --name=%N \
 {% if docker_network %}
                           --net={{ docker_network }} \
 {% endif %}
@@ -22,8 +28,8 @@ ExecStart=/bin/docker run --name=%N \
 {% endfor %}
                           {{ docker_image }} {% if docker_command %}{{ docker_command }}{% endif %}
 
-ExecStop=/bin/docker stop -t {{ service_stop_timeout }} %N
-ExecStopPost=/bin/docker rm -f %N
+ExecStop={{ docker_path }} stop -t {{ service_stop_timeout }} %N
+ExecStopPost={{ docker_path }} rm -f %N
 
 [Install]
 WantedBy=multi-user.target
