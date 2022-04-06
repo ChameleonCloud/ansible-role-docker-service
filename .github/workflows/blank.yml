@@ -1,0 +1,23 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Publish Ansible role to Galaxy
+        uses: robertdebock/galaxy-action@1.2.0
+        with:
+          # Your personal Galaxy key found under Galaxy -> Your Profile -> Preferences -> API Key
+          galaxy_api_key: ${{ secrets.ANSIBLE_GALAXY_API_KEY }}
+          # The git branch you want to upload.
+          git_branch: master
+          # The (relative) location of your role.
+          path: ./
