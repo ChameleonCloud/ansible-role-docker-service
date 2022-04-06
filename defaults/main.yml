@@ -11,4 +11,4 @@ docker_mounts: []
 docker_environment: {}
 docker_ports: []
 
-systemd_install_path: /usr/lib/systemd/system
+systemd_install_path: /etc/systemd/system
